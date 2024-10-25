@@ -1,0 +1,89 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="mb-4">Buenos días, Encargado</h1>
+            <!-- Notificaciones -->
+            <div class="alert alert-success d-flex justify-content-between align-items-center">
+                <span>3 pedidos han sido completados</span>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <div class="alert alert-info d-flex justify-content-between align-items-center">
+                <span>7 pedidos requieren de tu atención</span>
+                <button type="button" class="btn-close"></button>
+            </div>
+        </div>
+        <!-- Últimos pedidos -->
+        <div class="col-md-8">
+            <h2 class="mb-3">Últimos pedidos</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Destino</th>
+                        <th>Estado</th>
+                        <th>Contacto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
+                        <td>Almacén 1, Madrid</td>
+                        <td><span class="badge bg-success">Completado</span></td>
+                        <td>666 444 333</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary mx-2">Ver</button>
+                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pedidos activos -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="mb-3">Pedidos activos</h2>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Contacto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
+                        <td>Almacén 1, Madrid</td>
+                        <td>Almacén 2, Zaragoza</td>
+                        <td>19/10/2024</td>
+                        <td><span class="badge bg-info text-dark">En revisión</span></td>
+                        <td>666 444 333</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">Ver</button>
+                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
+                        <td>Almacén 1, Madrid</td>
+                        <td>Almacén 2, Zaragoza</td>
+                        <td>19/10/2024</td>
+                        <td><span class="badge bg-danger">En envío</span></td>
+                        <td>666 444 333</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary">Ver</button>
+                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
