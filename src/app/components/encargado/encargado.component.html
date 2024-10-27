@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
-            <h1 class="mb-4">Buenos días, Encargado</h1>
+            <h1 class="mb-4">Buenos días, {{this.user.nombre}}</h1>
             <!-- Notificaciones -->
             <div class="alert alert-success d-flex justify-content-between align-items-center">
                 <span>3 pedidos han sido completados</span>
@@ -26,25 +26,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
-                        <td>Almacén 1, Madrid</td>
-                        <td><span class="badge bg-success">Completado</span></td>
-                        <td>666 444 333</td>
+                    <!-- Usa *ngFor para iterar sobre los pedidos recientes -->
+                    <tr *ngFor="let pedido of getPedidosRecientes()">
+                        <td>{{ pedido.nombre }}</td>
+                        <td>{{ pedido.destino }}</td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary mx-2">Ver</button>
-                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+                            <span class="badge" [ngClass]="{
+                                'bg-success': pedido.estado === 'Completado',
+                                'bg-warning': pedido.estado === 'En revisión',
+                                'bg-danger': pedido.estado === 'En envío'
+                            }">{{ pedido.estado }}</span>
+                        </td>
+                        <td>{{ pedido.contacto }}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary mx-1"
+                                (click)="openModalDetails(pedido.id)">
+                                Ver
+                            </button>
+                            <button type="button" class="btn btn-sm btn-warning mx-1" data-bs-toggle="modal"
+                                data-bs-target="#modalEdit">
+                                Editar
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
     </div>
 
     <!-- Pedidos activos -->
     <div class="row mt-5">
         <div class="col-12">
-            <h2 class="mb-3">Pedidos activos</h2>
+            <h2 class="mb-3">Todos los pedidos</h2>
             <table class="table table-bordered">
                 <thead class="table-light">
                     <tr>
@@ -58,32 +72,60 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
-                        <td>Almacén 1, Madrid</td>
-                        <td>Almacén 2, Zaragoza</td>
-                        <td>19/10/2024</td>
-                        <td><span class="badge bg-info text-dark">En revisión</span></td>
-                        <td>666 444 333</td>
+                    <tr *ngFor="let user of users">
+                        <td>{{ user.nombre }}</td>
+                        <td>{{ user.origen }}</td>
+                        <td>{{ user.destino }}</td>
+                        <td>{{ user.fecha }}</td>
+                        <td><span class="badge bg-info text-dark">{{ user.estado }}</span></td>
+                        <td>{{ user.contacto }}</td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary">Ver</button>
-                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
+                            <button class="btn btn-sm btn-primary mx-1" (click)="openModalDetails(user.id)">Ver</button>
+                            <button class="btn btn-sm btn-secondary">Editar</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td><span class="badge bg-warning text-dark me-2">AM</span> Aitor</td>
-                        <td>Almacén 1, Madrid</td>
-                        <td>Almacén 2, Zaragoza</td>
-                        <td>19/10/2024</td>
-                        <td><span class="badge bg-danger">En envío</span></td>
-                        <td>666 444 333</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary">Ver</button>
-                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal details -->
+<div class="modal fade" id="modalDetails" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="modalDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalDetailsLabel">Detalles del pedido</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ID: {{this.user.id}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="modalEditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalEditLabel">Editar pedido</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ID: 1
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
         </div>
     </div>
 </div>
