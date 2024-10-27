@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { users } from './conf/bbdd';
-import { User } from '../../interfaces/encargado.model';
+import { User, Status } from '../../interfaces/encargado.model';
 import { CommonModule } from '@angular/common';
 declare var bootstrap: any;
 
@@ -20,10 +20,10 @@ export class EncargadoComponent {
     origen: '',
     destino: '',
     fecha: '',
-    estado: '',
+    estado: Status['Pendiente de pago'],
     contacto: '',
   };
-  public users: User[] = users; // Inicializa la propiedad users
+  public users: User[] = users;
 
   openModalDetails(userId: number) {
     this.getUserDetails(userId);
@@ -32,14 +32,36 @@ export class EncargadoComponent {
   }
 
   getUserDetails(id: number) {
-    this.user = this.users[id - 1]; // Cambia a this.users
-    console.log(this.user);
+    this.user = this.users[id - 1];
+  }
+
+  getUserStatus(estado: Status): string {
+    console.log(estado); // Aquí se imprime el estado correcto
+
+    if (estado === Status.Aceptado) {
+      return 'bg-primary';
+    } else if (estado === Status.Cancelado) {
+      return 'bg-danger';
+    } else if (estado === Status['En revisión']) {
+      return 'bg-warning text-dark';
+    } else if (estado === Status.Entregado) {
+      return 'bg-success';
+    } else if (estado === Status.Enviado) {
+      return 'bg-purple';
+    } else if (estado === Status['Pendiente de envío']) {
+      return 'bg-secondary text-light';
+    } else if (estado === Status['Pendiente de pago']) {
+      return 'bg-light text-dark';
+    } else {
+      return '';
+    }
   }
 
   getPedidosRecientes() {
     const now = new Date();
 
-    return this.users.filter((user) => { // Cambia a this.users
+    return this.users.filter((user) => {
+      // Cambia a this.users
       const [day, month, year] = user.fecha.split('/').map(Number);
       const fechaPedido = new Date(year, month - 1, day);
       const diferenciaDias = Math.floor(

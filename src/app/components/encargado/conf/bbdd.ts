@@ -1,3 +1,5 @@
+import { Status } from "../../../interfaces/encargado.model";
+
 export const users = [
   {
     id: 1,
@@ -6,7 +8,7 @@ export const users = [
     origen: 'Almacén 1, Madrid',
     destino: 'Almacén 2, Zaragoza',
     fecha: '19/10/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '666 444 333',
   },
   {
@@ -16,7 +18,7 @@ export const users = [
     origen: 'Almacén 3, Valencia',
     destino: 'Almacén 5, Bilbao',
     fecha: '20/10/2024',
-    estado: 'En envío',
+    estado: Status["Pendiente de envío"],
     contacto: '677 555 444',
   },
   {
@@ -26,7 +28,7 @@ export const users = [
     origen: 'Almacén 4, Sevilla',
     destino: 'Almacén 6, Barcelona',
     fecha: '21/10/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '688 666 555',
   },
   {
@@ -36,7 +38,7 @@ export const users = [
     origen: 'Almacén 2, Zaragoza',
     destino: 'Almacén 7, Málaga',
     fecha: '22/10/2024',
-    estado: 'En envío',
+    estado: Status["Pendiente de envío"],
     contacto: '699 777 666',
   },
   {
@@ -46,7 +48,7 @@ export const users = [
     origen: 'Almacén 5, Bilbao',
     destino: 'Almacén 1, Madrid',
     fecha: '23/09/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '611 888 777',
   },
   {
@@ -56,7 +58,7 @@ export const users = [
     origen: 'Almacén 6, Barcelona',
     destino: 'Almacén 3, Valencia',
     fecha: '24/09/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '622 999 888',
   },
   {
@@ -66,7 +68,7 @@ export const users = [
     origen: 'Almacén 7, Málaga',
     destino: 'Almacén 4, Sevilla',
     fecha: '25/09/2024',
-    estado: 'En envío',
+    estado: Status["Pendiente de envío"],
     contacto: '633 000 999',
   },
   {
@@ -76,7 +78,7 @@ export const users = [
     origen: 'Almacén 1, Madrid',
     destino: 'Almacén 8, Bilbao',
     fecha: '26/09/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '644 111 222',
   },
   {
@@ -86,7 +88,7 @@ export const users = [
     origen: 'Almacén 3, Valencia',
     destino: 'Almacén 2, Zaragoza',
     fecha: '27/08/2024',
-    estado: 'En envío',
+    estado: Status["Pendiente de envío"],
     contacto: '655 222 333',
   },
   {
@@ -96,7 +98,7 @@ export const users = [
     origen: 'Almacén 4, Sevilla',
     destino: 'Almacén 5, Bilbao',
     fecha: '28/08/2024',
-    estado: 'En revisión',
+    estado: Status["En revisión"],
     contacto: '666 333 444',
   },
 ];

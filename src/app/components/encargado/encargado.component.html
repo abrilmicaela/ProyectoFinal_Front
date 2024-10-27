@@ -31,11 +31,7 @@
                         <td>{{ pedido.nombre }}</td>
                         <td>{{ pedido.destino }}</td>
                         <td>
-                            <span class="badge" [ngClass]="{
-                                'bg-success': pedido.estado === 'Completado',
-                                'bg-warning': pedido.estado === 'En revisión',
-                                'bg-danger': pedido.estado === 'En envío'
-                            }">{{ pedido.estado }}</span>
+                            <span class="badge" [ngClass]="getUserStatus(pedido.estado)">{{ pedido.estado }}</span>
                         </td>
                         <td>{{ pedido.contacto }}</td>
                         <td>
@@ -77,7 +73,7 @@
                         <td>{{ user.origen }}</td>
                         <td>{{ user.destino }}</td>
                         <td>{{ user.fecha }}</td>
-                        <td><span class="badge bg-info text-dark">{{ user.estado }}</span></td>
+                        <td><span class="badge bg-info text-dark" [ngClass]="getUserStatus(user.estado)">{{ user.estado }}</span></td>
                         <td>{{ user.contacto }}</td>
                         <td>
                             <button class="btn btn-sm btn-primary mx-1" (click)="openModalDetails(user.id)">Ver</button>
