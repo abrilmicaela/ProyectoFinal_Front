@@ -22,7 +22,7 @@
                         <th>Destino</th>
                         <th>Estado</th>
                         <th>Contacto</th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
                         <th>Fecha</th>
                         <th>Estado</th>
                         <th>Contacto</th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,11 +73,15 @@
                         <td>{{ user.origen }}</td>
                         <td>{{ user.destino }}</td>
                         <td>{{ user.fecha }}</td>
-                        <td><span class="badge bg-info text-dark" [ngClass]="getUserStatus(user.estado)">{{ user.estado }}</span></td>
+                        <td><span class="badge bg-info text-dark" [ngClass]="getUserStatus(user.estado)">{{ user.estado
+                                }}</span></td>
                         <td>{{ user.contacto }}</td>
                         <td>
                             <button class="btn btn-sm btn-primary mx-1" (click)="openModalDetails(user.id)">Ver</button>
-                            <button class="btn btn-sm btn-secondary">Editar</button>
+                            <button type="button" class="btn btn-sm btn-warning mx-1" data-bs-toggle="modal"
+                                data-bs-target="#modalEdit">
+                                Editar
+                            </button>
                         </td>
                     </tr>
 
@@ -97,7 +101,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ID: {{this.user.id}}
+               
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Contacto</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Destino</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">{{this.user.id}}</th>
+                        <td>{{this.user.nombre}}</td>
+                        <td>{{this.user.apellidos}}</td>
+                        <td>{{this.user.contacto}}</td>
+                        <td>{{this.user.estado}}</td>
+                        <td>{{this.user.destino}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
