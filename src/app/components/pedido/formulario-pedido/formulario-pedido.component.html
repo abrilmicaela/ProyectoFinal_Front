@@ -1,1 +1,140 @@
-<p>formulario-pedido works!</p>
+<div class="row">
+  <app-navbar class="col-1"></app-navbar>
+  <div class="col-11 pl-5">
+    <main>
+      <!-- @if (tipo !== 'Nuevo') {
+    
+    <div class="user-header d-flex gap-3 align-items-center mb-3 border-bottom border-dark p-3">
+    <img
+      src="assets/avatar_usuario.svg"
+      class="img-fit-cover rounded-circle"
+      height="100"
+    />
+    <span>
+
+      <p
+      class=""
+      >
+      {{ tipo }}
+    </p>
+    <h1>{{ user_name }}</h1>
+  </span>
+  </div> } 
+    @else {
+  -->
+
+      <h1
+        class="d-flex gap-4 align-items-center mb-3 border-bottom border-dark p-3"
+      >
+        {{ tipo }} pedido
+      </h1>
+      <!-- } -->
+
+      <form [formGroup]="pedidoForm" (ngSubmit)="getFormData()" novalidate>
+        <div class="form-group mb-3 row">
+          <span class="col">
+            <label for="destinatario" class="form-label">Destinatario</label>
+            <input
+              type="text"
+              id="destinatario"
+              placeholder="Destinatario"
+              class="form-control"
+              formControlName="destinatario"
+            />
+            @if (checkValidation("destinatario" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+          </span>
+          <span class="col">
+            <label for="last_name" class="form-label">Teléfono</label>
+            <input
+              type="text"
+              id="telefono"
+              placeholder="Apellidos"
+              class="form-control"
+              formControlName="telefono"
+            />
+            @if (checkValidation("telefono" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+          </span>
+        </div>
+        <div class="form-group mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            class="form-control"
+            formControlName="email"
+          />
+          @if (checkValidation("email" ,"required")) {
+          <p class="text-danger">El campo es obligatorio</p>
+          } @if (checkValidation("email" ,"pattern")) {
+          <p class="text-danger">El email no es correcto</p>
+          }
+        </div>
+        <div class="form-group mb-3">
+          <label for="dest_calle">Destino</label>
+          <input
+            type="text"
+            id="dest_calle"
+            placeholder="Dirección"
+            class="form-control"
+            formControlName="dest_calle"
+           
+          />
+           @if (checkValidation("dest_calle" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+        </div>
+           <div class="form-group mb-3">
+          <input
+            type="text"
+            id="dest_ciudad"
+            placeholder="Ciudad"
+            class="form-control"
+            formControlName="dest_ciudad"
+           
+          />
+           @if (checkValidation("dest_ciudad" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+        </div>
+           <div class="form-group mb-3">
+          <input
+            type="text"
+            id="dest_provincia"
+            placeholder="Provincia"
+            class="form-control"
+            formControlName="dest_provincia"
+           
+          />
+           @if (checkValidation("dest_provincia" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+        </div>
+   <div class="form-group mb-3">
+          <label for="dest_cp">Código postal</label>
+          <input
+            type="text"
+            id="dest_cp"
+            placeholder="Código postal"
+            class="form-control"
+            formControlName="dest_cp"
+           
+          />
+           @if (checkValidation("dest_cp" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+        </div>
+        <input
+          type="submit"
+          [value]="submitBtn"
+          [disabled]="!pedidoForm.valid"
+          class="mt-2 btn btn-primary"
+        />
+      </form>
+    </main>
+  </div>
+</div>
