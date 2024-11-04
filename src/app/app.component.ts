@@ -5,7 +5,7 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, EncargadoComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
