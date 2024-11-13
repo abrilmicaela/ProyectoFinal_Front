@@ -3,10 +3,15 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 import { PedidoComponent } from './components/pedido/pedido/pedido.component';
 import { FormularioPedidoComponent } from './components/pedido/formulario-pedido/formulario-pedido.component';
 import { InterfazComponent } from './pages/interfaz/interfaz.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   // Redirección inicial a 'home'
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   {
     path: 'dashboard',
     component: InterfazComponent,
