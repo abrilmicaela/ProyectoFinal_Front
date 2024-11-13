@@ -37,6 +37,10 @@ export const routes: Routes = [
     path: 'camionero',
     component: EncargadoComponent,
   },
+  {
+    path: 'nuevo-pedido',
+    component: FormularioPedidoComponent,
+  },
   // Ruta para mostrar el pedido específico
   {
     path: 'pedido/:id',
