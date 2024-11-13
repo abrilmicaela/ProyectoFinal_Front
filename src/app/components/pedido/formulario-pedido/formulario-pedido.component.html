@@ -33,33 +33,46 @@
       <form [formGroup]="pedidoForm" (ngSubmit)="getFormData()" novalidate>
         <div class="form-group mb-3 row">
           <span class="col">
-            <label for="destinatario" class="form-label">Destinatario</label>
+            <label for="origen" class="form-label">Origen</label>
             <input
               type="text"
-              id="destinatario"
-              placeholder="Destinatario"
+              id="origen"
+              placeholder="Origen"
               class="form-control"
-              formControlName="destinatario"
+              formControlName="origen"
             />
-            @if (checkValidation("destinatario" ,"required")) {
+            @if (checkValidation("origen" ,"required")) {
             <p class="text-danger">El campo es obligatorio</p>
             }
           </span>
           <span class="col">
-            <label for="last_name" class="form-label">Teléfono</label>
+            <label for="destino" class="form-label">Destino</label>
             <input
               type="text"
-              id="telefono"
-              placeholder="Apellidos"
+              id="destino"
+              placeholder="Destino"
               class="form-control"
-              formControlName="telefono"
+              formControlName="destino"
             />
-            @if (checkValidation("telefono" ,"required")) {
+            @if (checkValidation("destino" ,"required")) {
+            <p class="text-danger">El campo es obligatorio</p>
+            }
+          </span>
+          <span class="col">
+            <label for="matricula" class="form-label">Matrícula</label>
+            <input
+              type="text"
+              id="matricula"
+              placeholder="Matrícula"
+              class="form-control"
+              formControlName="matricula"
+            />
+            @if (checkValidation("matricula" ,"required")) {
             <p class="text-danger">El campo es obligatorio</p>
             }
           </span>
         </div>
-        <div class="form-group mb-3">
+        <!-- <div class="form-group mb-3">
           <label for="email" class="form-label">Email</label>
           <input
             type="email"
@@ -73,8 +86,8 @@
           } @if (checkValidation("email" ,"pattern")) {
           <p class="text-danger">El email no es correcto</p>
           }
-        </div>
-        <div class="form-group mb-3">
+        </div> -->
+        <!-- <div class="form-group mb-3">
           <label for="dest_calle">Destino</label>
           <input
             type="text"
@@ -127,7 +140,7 @@
            @if (checkValidation("dest_cp" ,"required")) {
             <p class="text-danger">El campo es obligatorio</p>
             }
-        </div>
+        </div> -->
         <input
           type="submit"
           [value]="submitBtn"

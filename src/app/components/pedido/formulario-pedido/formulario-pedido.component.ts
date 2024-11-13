@@ -20,13 +20,18 @@ import { Pedido } from '../../../interfaces/pedido.interface';
 export class FormularioPedidoComponent {
   pedidoForm: FormGroup;
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router)
 
   tipo: string = 'Nuevo';
   submitBtn: string = 'Enviar';
   ExpEmail = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,10}$/;
 
   constructor() {
-    this.pedidoForm = new FormGroup({});
+    this.pedidoForm = new FormGroup({
+      origen: new FormControl(null, [Validators.required]), 
+      destino: new FormControl(null, [Validators.required]), 
+      matricula: new FormControl(null, [Validators.required]), 
+    });
   }
 
   checkValidation(control: string, validator: string) {
@@ -45,5 +50,9 @@ export class FormularioPedidoComponent {
     });
   }
 
-  getFormData() {}
+  getFormData() {
+    this.router.navigateByUrl('/dashboard')
+    if(this.pedidoForm.valid){
+    }
+  }
 }
