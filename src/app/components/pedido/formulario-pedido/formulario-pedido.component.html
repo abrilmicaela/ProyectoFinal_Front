@@ -1,8 +1,8 @@
 <div class="row">
-  <app-navbar class="col-1"></app-navbar>
-  <div class="col-11 pl-5">
-    <main>
-      <!-- @if (tipo !== 'Nuevo') {
+    <app-navbar class="col-1"></app-navbar>
+    <div class="col-11 pl-5">
+        <main>
+            <!-- @if (tipo !== 'Nuevo') {
     
     <div class="user-header d-flex gap-3 align-items-center mb-3 border-bottom border-dark p-3">
     <img
@@ -23,56 +23,62 @@
     @else {
   -->
 
-      <h1
-        class="d-flex gap-4 align-items-center mb-3 border-bottom border-dark p-3"
-      >
-        {{ tipo }} pedido
-      </h1>
-      <!-- } -->
+            <h1
+                class="d-flex gap-4 align-items-center mb-3 border-bottom border-dark p-3"
+            >
+                {{ tipo }} pedido
+            </h1>
+            <!-- } -->
 
-      <form [formGroup]="pedidoForm" (ngSubmit)="getFormData()" novalidate>
-        <div class="form-group mb-3 row">
-          <span class="col">
-            <label for="origen" class="form-label">Origen</label>
-            <input
-              type="text"
-              id="origen"
-              placeholder="Origen"
-              class="form-control"
-              formControlName="origen"
-            />
-            @if (checkValidation("origen" ,"required")) {
-            <p class="text-danger">El campo es obligatorio</p>
-            }
-          </span>
-          <span class="col">
-            <label for="destino" class="form-label">Destino</label>
-            <input
-              type="text"
-              id="destino"
-              placeholder="Destino"
-              class="form-control"
-              formControlName="destino"
-            />
-            @if (checkValidation("destino" ,"required")) {
-            <p class="text-danger">El campo es obligatorio</p>
-            }
-          </span>
-          <span class="col">
-            <label for="matricula" class="form-label">Matrícula</label>
-            <input
-              type="text"
-              id="matricula"
-              placeholder="Matrícula"
-              class="form-control"
-              formControlName="matricula"
-            />
-            @if (checkValidation("matricula" ,"required")) {
-            <p class="text-danger">El campo es obligatorio</p>
-            }
-          </span>
-        </div>
-        <!-- <div class="form-group mb-3">
+            <form
+                [formGroup]="pedidoForm"
+                (ngSubmit)="getFormData()"
+                novalidate
+            >
+                <div class="form-group mb-3 row">
+                    <span class="col">
+                        <label for="origen" class="form-label">Origen</label>
+                        <input
+                            type="text"
+                            id="origen"
+                            placeholder="Origen"
+                            class="form-control"
+                            formControlName="origen"
+                        />
+                        @if (checkValidation('origen', 'required')) {
+                            <p class="text-danger">El campo es obligatorio</p>
+                        }
+                    </span>
+                    <span class="col">
+                        <label for="destino" class="form-label">Destino</label>
+                        <input
+                            type="text"
+                            id="destino"
+                            placeholder="Destino"
+                            class="form-control"
+                            formControlName="destino"
+                        />
+                        @if (checkValidation('destino', 'required')) {
+                            <p class="text-danger">El campo es obligatorio</p>
+                        }
+                    </span>
+                    <span class="col">
+                        <label for="matricula" class="form-label"
+                            >Matrícula</label
+                        >
+                        <input
+                            type="text"
+                            id="matricula"
+                            placeholder="Matrícula"
+                            class="form-control"
+                            formControlName="matricula"
+                        />
+                        @if (checkValidation('matricula', 'required')) {
+                            <p class="text-danger">El campo es obligatorio</p>
+                        }
+                    </span>
+                </div>
+                <!-- <div class="form-group mb-3">
           <label for="email" class="form-label">Email</label>
           <input
             type="email"
@@ -87,7 +93,7 @@
           <p class="text-danger">El email no es correcto</p>
           }
         </div> -->
-        <!-- <div class="form-group mb-3">
+                <!-- <div class="form-group mb-3">
           <label for="dest_calle">Destino</label>
           <input
             type="text"
@@ -141,13 +147,13 @@
             <p class="text-danger">El campo es obligatorio</p>
             }
         </div> -->
-        <input
-          type="submit"
-          [value]="submitBtn"
-          [disabled]="!pedidoForm.valid"
-          class="mt-2 btn btn-primary"
-        />
-      </form>
-    </main>
-  </div>
+                <input
+                    type="submit"
+                    [value]="submitBtn"
+                    [disabled]="!pedidoForm.valid"
+                    class="mt-2 btn btn-primary"
+                />
+            </form>
+        </main>
+    </div>
 </div>
