@@ -1,74 +1,147 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { users } from './conf/bbdd';
-import { User, Status } from '../../interfaces/encargado.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Status } from '../../interfaces/pedido.interface';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Pedido } from '../../interfaces/pedido.interface';
+import { PedidosService } from '../../services/orders.service';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-encargado',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './encargado.component.html',
   styleUrl: './encargado.component.css',
 })
-export class EncargadoComponent {
+export class EncargadoComponent implements OnInit {
   @ViewChild('modalDetails') modalElement!: ElementRef;
-  public user: User = {
-    id: null,
-    nombre: '',
-    apellidos: '',
-    origen: '',
-    destino: '',
-    fecha: '',
-    estado: Status['Pendiente de pago'],
-    contacto: '',
-  };
-  public users: User[] = users;
+  nameUser: string;
+  pedidos: Pedido[] = [];
+  pedido: Pedido;
+  pedidosRecientes: Pedido[] = [];
 
-  openModalDetails(userId: number) {
-    this.getUserDetails(userId);
+  constructor(
+    private route: ActivatedRoute,
+    private pedidoService: PedidosService,
+  ) {
+	this.pedido = {
+		origen: '',
+		destino: '',
+		matricula_camion: '',
+		estado: Status['Pendiente de pago'],
+		fecha_salida: ''
+	};
+    this.pedidoService.getAllPedidos().subscribe({
+      next: (response) => {
+		console.log(response);
+        this.pedidos = response.map((pedido) => ({
+          ...pedido,
+          fecha_salida: this.formatFecha(pedido.fecha_salida),
+        }));
+        this.filterPedidosRecientes();
+      },
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.nameUser = params['name'];
+    });
+  }
+
+  openModalDetails(pedidoId: number) {
+	console.log(pedidoId);
+	
+    this.getPedidoDetails(pedidoId);
     var myModal = new bootstrap.Modal(document.getElementById('modalDetails'));
     myModal.show();
   }
 
-  getUserDetails(id: number) {
-    this.user = this.users[id - 1];
+  openModalEdit(pedidoId: number) {
+    this.getPedidoDetails(pedidoId);
+    var myModal = new bootstrap.Modal(document.getElementById('modalEdit'));
+    myModal.show();
+  }
+
+  closeModal() {
+	const backdrops = document.querySelectorAll('.modal-backdrop');
+	backdrops.forEach((backdrop) => backdrop.remove());
+  }  
+  
+
+  getPedidoDetails(id: number) {
+    this.pedido = this.pedidos[id - 1];
   }
 
   getUserStatus(estado: Status): string {
-    console.log(estado); // Aquí se imprime el estado correcto
-
-    if (estado === Status.Aceptado) {
-      return 'bg-primary';
-    } else if (estado === Status.Cancelado) {
-      return 'bg-danger';
-    } else if (estado === Status['En revisión']) {
-      return 'bg-warning text-dark';
-    } else if (estado === Status.Entregado) {
-      return 'bg-success';
-    } else if (estado === Status.Enviado) {
-      return 'bg-purple';
-    } else if (estado === Status['Pendiente de envío']) {
-      return 'bg-secondary text-light';
-    } else if (estado === Status['Pendiente de pago']) {
-      return 'bg-light text-dark';
-    } else {
-      return '';
+    switch (estado) {
+      case Status.Aceptado:
+        return 'bg-primary';
+      case Status.Cancelado:
+        return 'bg-danger';
+      case Status['En revisión']:
+        return 'bg-warning text-dark';
+      case Status.Entregado:
+        return 'bg-success';
+      case Status.Enviado:
+        return 'bg-purple';
+      case Status['Pendiente de envío']:
+        return 'bg-secondary text-light';
+      case Status['Pendiente de pago']:
+        return 'bg-light text-dark';
+      default:
+        return '';
     }
   }
 
-  getPedidosRecientes() {
+  // Formateamos la fecha al formato español 'dd/mm/yyyy'
+  formatFecha(fecha: string): string {
+    const date = new Date(fecha);
+    if (isNaN(date.getTime())) { 
+      return '';
+    }
+
+    const options: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit' 
+    };
+
+    return date.toLocaleDateString('es-ES', options); // Formato: dd/mm/yyyy
+  }
+
+  filterPedidosRecientes(): void {
     const now = new Date();
 
-    return this.users.filter((user) => {
-      // Cambia a this.users
-      const [day, month, year] = user.fecha.split('/').map(Number);
-      const fechaPedido = new Date(year, month - 1, day);
+    // Creamos una copia temporal de los pedidos para trabajar sin modificar el original
+    const pedidosCopia = [...this.pedidos];
+
+    this.pedidosRecientes = pedidosCopia.filter((pedido) => {
+      // Calculamos la diferencia en días
+      const fechaPedido = new Date(pedido['fecha_salida']);
       const diferenciaDias = Math.floor(
         (now.getTime() - fechaPedido.getTime()) / (1000 * 60 * 60 * 24)
       );
-
       return diferenciaDias <= 30;
+    });
+  }
+
+  getEstadoKey(estado: string): string {
+    // Mapeamos el valor a su key en el enum
+    const estadoKey = Object.keys(Status).find(key => Status[key] === estado);
+    return estadoKey || estado;
+  }
+
+  guardarPedido(): void {
+	 console.log(this.pedido);
+    this.pedidoService.updatePedido(this.pedido.id, this.pedido).subscribe({
+      next: (updatedPedido) => {
+        alert('Pedido actualizado');
+      },
+      error: (err) => {
+        console.error('Error al actualizar el pedido:', err);
+      },
     });
   }
 }

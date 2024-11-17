@@ -10,14 +10,14 @@
     <div class="container d-flex align-items-center justify-content-center vh-100">
         <div class="card shadow p-4" style="width: 350px;">
             <h3 class="text-center mb-4">Iniciar sesión</h3>
-            <form [formGroup]="ReactiveForm" (ngSubmit)="cargardatos()">
+            <form [formGroup]="ReactiveForm" (ngSubmit)="checkUser()">
                 <div class="mb-3">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" formControlName="Email" class="form-control">
+                    <input type="email" id="email" formControlName="email" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="password">Contraseña</label>
-                    <input type="password" id="password" formControlName="Password" class="form-control">
+                    <input type="password" id="password" formControlName="password" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
             </form>
@@ -27,10 +27,5 @@
             </div>
         </div>
     </div>
-
-
-    
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </html>

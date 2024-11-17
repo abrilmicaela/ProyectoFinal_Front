@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: InterfazComponent,
   },
   {
-    path: 'jefe',
+    path: 'encargado',
     component: EncargadoComponent,
     children: [
       {
