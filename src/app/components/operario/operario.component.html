@@ -1,0 +1,70 @@
+<div class="container my-4">
+  <h1 class="text-center mb-4">Gestión de Tareas</h1>
+
+  <!-- Filtro de búsqueda -->
+  <div class="row mb-3">
+    <div class="col-md-8">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar tarea..."
+        [(ngModel)]="filterText"
+      />
+    </div>
+    <div class="col-md-4 text-end">
+      <button class="btn btn-primary" (click)="filtrarTareas()">Buscar</button>
+    </div>
+  </div>
+
+  <!-- Tabla de tareas -->
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tarea of tareas">
+        <td>{{ tarea.id }}</td>
+        <td>{{ tarea.descripcion }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-warning text-dark': tarea.estado === 'Pendiente',
+              'bg-primary': tarea.estado === 'En proceso',
+              'bg-success': tarea.estado === 'Completado'
+            }"
+          >
+            {{ tarea.estado }}
+          </span>
+        </td>
+        <td>{{ tarea.fecha | date : "short" }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-info me-2"
+            (click)="actualizarEstado(tarea, 'En proceso')"
+          >
+            En proceso
+          </button>
+          <button
+            class="btn btn-sm btn-success me-2"
+            (click)="actualizarEstado(tarea, 'Completado')"
+          >
+            Completado
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="eliminarTarea(tarea.id)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

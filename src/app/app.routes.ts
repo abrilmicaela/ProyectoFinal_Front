@@ -4,6 +4,7 @@ import { PedidoComponent } from './components/pedido/pedido/pedido.component';
 import { FormularioPedidoComponent } from './components/pedido/formulario-pedido/formulario-pedido.component';
 import { InterfazComponent } from './pages/interfaz/interfaz.component';
 import { LoginComponent } from './pages/login/login.component';
+import { OperarioComponent } from './components/operario/operario.component';
 
 export const routes: Routes = [
   // Redirección inicial a 'home'
@@ -56,7 +57,11 @@ export const routes: Routes = [
     path: 'pedido/:id/actualizar',
     component: FormularioPedidoComponent,
   },
-
+  {
+    path: 'operario',
+    component: OperarioComponent,
+  },
+  
   // Ruta comodín para manejar rutas no definidas
   { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
