@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Pedido } from '../../../interfaces/pedido.interface';
 import { PedidosService } from '../../../services/orders.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-formulario-pedido',
@@ -86,10 +87,10 @@ export class FormularioPedidoComponent {
                         this.pedido_id,
                         this.pedidoForm.value
                     );
-                    const pedidoUpdate = await this.pedidoService.updatePedido(
+                    const pedidoUpdate = await firstValueFrom( this.pedidoService.updatePedido(
                         this.pedido_id,
                         this.pedidoForm.value
-                    );
+                    ));
                     setTimeout(() => this.formSuccess(), 3000);
                 } catch (error) {
                     console.log(error);
