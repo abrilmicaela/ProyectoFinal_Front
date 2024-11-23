@@ -2,33 +2,12 @@
     <app-navbar class="col-1"></app-navbar>
     <div class="col-11 pl-5">
         <main>
-            <!-- @if (tipo !== 'Nuevo') {
-    
-    <div class="user-header d-flex gap-3 align-items-center mb-3 border-bottom border-dark p-3">
-    <img
-      src="assets/avatar_usuario.svg"
-      class="img-fit-cover rounded-circle"
-      height="100"
-    />
-    <span>
-
-      <p
-      class=""
-      >
-      {{ tipo }}
-    </p>
-    <h1>{{ user_name }}</h1>
-  </span>
-  </div> } 
-    @else {
-  -->
-
-            <h1
-                class="d-flex gap-4 align-items-center mb-3 border-bottom border-dark p-3"
-            >
-                {{ tipo }} pedido
-            </h1>
-            <!-- } -->
+            <div class="d-flex flex-column gap-3 mb-3 p-3">
+                <h1>{{ tipo }} pedido</h1>
+                @if (tipo !== 'Nuevo') {
+                    <p>id: {{ pedido_id }}</p>
+                }
+            </div>
 
             <form
                 [formGroup]="pedidoForm"
@@ -71,13 +50,40 @@
                             id="matricula"
                             placeholder="Matrícula"
                             class="form-control"
-                            formControlName="matricula"
+                            formControlName="matricula_camion"
                         />
-                        @if (checkValidation('matricula', 'required')) {
+                        @if (checkValidation('matricula_camion', 'required')) {
                             <p class="text-danger">El campo es obligatorio</p>
                         }
                     </span>
                 </div>
+
+                @if(tipo !== "Nuevo"){
+
+                    <div class="form-group mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        
+                        <select id="estado" class="form-select" formControlName="estado">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="revisando">Revisando</option>
+                            <option value="completo">Completo</option>
+                        </select>
+                        @if (checkValidation('estado', 'required')) {
+                            <p class="text-danger">El campo es obligatorio</p>
+                        }
+                    </div>
+                } @else{
+                    <div class="form-group mb-3">
+                        <label for="fecha_salida" class="form-label">Fecha de salida</label>
+                        
+                        <input type="date" id="fecha_salida" class="form-select" formControlName="fecha_salida">
+                          
+                        @if (checkValidation('fecha_salida', 'required')) {
+                            <p class="text-danger">El campo es obligatorio</p>
+                        }
+                    </div>
+                }
+
                 <!-- <div class="form-group mb-3">
           <label for="email" class="form-label">Email</label>
           <input
@@ -147,12 +153,18 @@
             <p class="text-danger">El campo es obligatorio</p>
             }
         </div> -->
-                <input
-                    type="submit"
-                    [value]="submitBtn"
-                    [disabled]="!pedidoForm.valid"
-                    class="mt-2 btn btn-primary"
-                />
+        <div class="mt-2 d-flex">
+
+            @if (tipo === 'Nuevo') {
+                <button type="reset" class="btn btn-outline-danger me-2">Borrar datos</button>
+            }
+            <input
+            type="submit"
+            [value]="submitBtn"
+            [disabled]="!pedidoForm.valid"
+            class="btn btn-primary"
+            />
+        </div>
             </form>
         </main>
     </div>

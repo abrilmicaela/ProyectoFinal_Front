@@ -9,6 +9,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { Pedido } from '../../../interfaces/pedido.interface';
+import { PedidosService } from '../../../services/orders.service';
 
 @Component({
     selector: 'app-formulario-pedido',
@@ -22,15 +23,20 @@ export class FormularioPedidoComponent {
     activatedRoute = inject(ActivatedRoute);
     router = inject(Router);
 
+    pedidoService = inject(PedidosService);
+
     tipo: string = 'Nuevo';
     submitBtn: string = 'Enviar';
-    ExpEmail = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,10}$/;
+    pedido_id!: number;
+    // ExpEmail = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,10}$/;
 
     constructor() {
         this.pedidoForm = new FormGroup({
             origen: new FormControl(null, [Validators.required]),
             destino: new FormControl(null, [Validators.required]),
-            matricula: new FormControl(null, [Validators.required]),
+            matricula_camion: new FormControl(null, [Validators.required]),
+            estado: new FormControl(null, []),
+            fecha_salida: new FormControl(null, []),
         });
     }
 
@@ -42,17 +48,64 @@ export class FormularioPedidoComponent {
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe((params: any) => {
+        this.activatedRoute.params.subscribe(async (params: any) => {
             if (params.id) {
                 this.tipo = 'Actualizar';
                 this.submitBtn = 'Actualizar';
+                console.log(params.id);
+                this.pedido_id = params.id;
+                const pedido: Pedido = await this.pedidoService.getById(
+                    this.pedido_id
+                );
+
+                this.pedidoForm = new FormGroup({
+                    origen: new FormControl(pedido.origen, [
+                        Validators.required,
+                    ]),
+                    destino: new FormControl(pedido.destino, [
+                        Validators.required,
+                    ]),
+                    matricula_camion: new FormControl(pedido.matricula_camion, [
+                        Validators.required,
+                    ]),
+                    estado: new FormControl(pedido.estado, [
+                        Validators.required,
+                    ]),
+                });
             }
         });
     }
 
-    getFormData() {
-        this.router.navigateByUrl('/dashboard');
+    async getFormData() {
         if (this.pedidoForm.valid) {
+            if (this.pedido_id) {
+                // UPDATE PEDIDO
+                try {
+                    const pedidoUpdate = await this.pedidoService.updatePedido(
+                        this.pedido_id,
+                        this.pedidoForm.value
+                    );
+                    console.log(this.pedido_id, this.pedidoForm.value);
+                    // setTimeout(() => this.formSuccess(), 3000);
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                // CREATE PEDIDO
+                try {
+                    console.log('creando');
+                    console.log('Form Data:', this.pedidoForm.value);
+                    const pedidoCreate = await this.pedidoService.insertPedido(
+                        this.pedidoForm.value
+                    );
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         }
+    }
+
+    formSuccess() {
+        this.router.navigateByUrl('/dashboard');
     }
 }

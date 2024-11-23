@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Pedido } from '../interfaces/pedido.interface';
 
 @Injectable({
@@ -16,9 +16,16 @@ export class PedidosService {
         return this.http.get<Pedido[]>(this.apiUrl);
     }
 
+    getById(id: number) {
+        return firstValueFrom(this.http.get<Pedido>(`${this.apiUrl}/${id}`))
+    }
+
+    insertPedido(pedido : Pedido) : Promise<Pedido>{
+        return firstValueFrom(this.http.post<Pedido>(`${this.apiUrl}`, pedido));
+    }
+
     updatePedido(id: number, pedido: Pedido): Observable<Pedido> {
         const { origen, destino, matricula_camion, estado } = pedido;
-        console.log(id, pedido);
         const url = `${this.apiUrl}/${id}`;
         return this.http.put<Pedido>(url, pedido);
     }
