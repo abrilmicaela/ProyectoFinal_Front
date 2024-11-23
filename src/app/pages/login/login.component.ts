@@ -33,7 +33,7 @@ export class LoginComponent {
 
                 switch (userRole) {
                     case 'encargado':
-                        this.router.navigate(['/encargado'], {
+                        this.router.navigate(['/dashboard/encargado'], {
                             queryParams: { name: response.user.nombre },
                         });
                         break;

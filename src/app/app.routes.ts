@@ -5,6 +5,7 @@ import { FormularioPedidoComponent } from './components/pedido/formulario-pedido
 import { InterfazComponent } from './pages/interfaz/interfaz.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OperarioComponent } from './components/operario/operario.component';
+import { JefeComponent } from './components/jefe/jefe.component';
 
 export const routes: Routes = [
     // Redirección inicial a 'home'
@@ -16,52 +17,27 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: InterfazComponent,
-    },
-    {
-        path: 'encargado',
-        component: EncargadoComponent,
         children: [
-            {
-                path: 'nuevo-empleado',
-                component: EncargadoComponent,
-            },
-            {
-                path: 'actualizar-empleado/:id',
-                component: EncargadoComponent,
-            },
-            {
-                path: 'nuevo-almacen',
-                component: EncargadoComponent,
-            },
-            {
-                path: 'actualizar-almacen/:id',
-                component: EncargadoComponent,
-            },
+            { path: 'encargado', component: EncargadoComponent },
+            { path: 'jefe', component: JefeComponent },
+            { path: 'operario', component: OperarioComponent },
         ],
     },
+
+    { path: 'nuevo-pedido', component: FormularioPedidoComponent },
+    { path: 'pedido/:id', component: PedidoComponent },
+    { path: 'pedido/:id/actualizar', component: FormularioPedidoComponent },
+
     {
-        path: 'camionero',
-        component: EncargadoComponent,
-    },
-    {
-        path: 'nuevo-pedido',
-        component: FormularioPedidoComponent,
-    },
-    // Ruta para mostrar el pedido específico
-    {
-        path: 'pedido/:id',
-        component: PedidoComponent,
-    },
-    // Ruta para actualizar un pedido específico
-    {
-        path: 'pedido/:id/actualizar',
-        component: FormularioPedidoComponent,
-    },
-    {
-        path: 'operario',
-        component: OperarioComponent,
+        path: 'encargado',
+        children: [
+            { path: 'nuevo-empleado', component: JefeComponent },
+            { path: 'actualizar-empleado/:id', component: JefeComponent },
+            { path: 'nuevo-almacen', component: JefeComponent },
+            { path: 'actualizar-almacen/:id', component: JefeComponent },
+        ],
     },
 
     // Ruta comodín para manejar rutas no definidas
-    { path: '**', pathMatch: 'full', redirectTo: 'home' },
+    { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
 ];
