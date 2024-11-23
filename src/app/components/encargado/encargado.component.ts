@@ -143,15 +143,26 @@ export class EncargadoComponent implements OnInit {
         return estadoKey || estado;
     }
 
-    guardarPedido(): void {
-        console.log(this.pedido);
-        this.pedidoService.updatePedido(this.pedido.id, this.pedido).subscribe({
-            next: (updatedPedido) => {
-                alert('Pedido actualizado');
-            },
-            error: (err) => {
-                console.error('Error al actualizar el pedido:', err);
-            },
-        });
+    async guardarPedido() {
+        console.log('Submitting pedido:', this.pedido);
+        try {
+            const updatedPedido = await this.pedidoService.updatePedido(
+                this.pedido.id,
+                this.pedido
+            );
+            alert('Pedido actualizado');
+            console.log('Pedido updated successfully:', updatedPedido);
+        } catch (err) {
+            console.error('Error al actualizar el pedido:', err);
+            alert('Hubo un error al actualizar el pedido');
+        }
+        // this.pedidoService.updatePedido(this.pedido.id, this.pedido).subscribe({
+        //     next: (updatedPedido) => {
+        //         alert('Pedido actualizado');
+        //     },
+        //     error: (err) => {
+        //         console.error('Error al actualizar el pedido:', err);
+        //     },
+        // });
     }
 }

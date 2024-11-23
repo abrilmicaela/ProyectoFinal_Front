@@ -16,7 +16,7 @@ export class PedidosService {
         return this.http.get<Pedido[]>(this.apiUrl);
     }
 
-    getById(id: number) {
+    getById(id: number) : Promise<Pedido> {
         return firstValueFrom(this.http.get<Pedido>(`${this.apiUrl}/${id}`))
     }
 
@@ -24,9 +24,14 @@ export class PedidosService {
         return firstValueFrom(this.http.post<Pedido>(`${this.apiUrl}`, pedido));
     }
 
-    updatePedido(id: number, pedido: Pedido): Observable<Pedido> {
-        const { origen, destino, matricula_camion, estado } = pedido;
+    updatePedido(id: number, pedido: Pedido): Promise<Pedido> {
         const url = `${this.apiUrl}/${id}`;
-        return this.http.put<Pedido>(url, pedido);
+        return firstValueFrom(this.http.put<Pedido>(url, pedido));
     }
+    // PERDÓN POR CAMBIAR ESTO. CON EL OBSERVABLE NO CONSIGO QUE FUNCIONE :( 
+    // updatePedido(id: number, pedido: Pedido): Observable<Pedido> {
+    //     const { origen, destino, matricula_camion, estado } = pedido;
+    //     const url = `${this.apiUrl}/${id}`;
+    //     return this.http.put<Pedido>(url, pedido);
+    // }
 }

@@ -81,23 +81,26 @@ export class FormularioPedidoComponent {
             if (this.pedido_id) {
                 // UPDATE PEDIDO
                 try {
+                    console.log(
+                        'Updating pedido:',
+                        this.pedido_id,
+                        this.pedidoForm.value
+                    );
                     const pedidoUpdate = await this.pedidoService.updatePedido(
                         this.pedido_id,
                         this.pedidoForm.value
                     );
-                    console.log(this.pedido_id, this.pedidoForm.value);
-                    // setTimeout(() => this.formSuccess(), 3000);
+                    setTimeout(() => this.formSuccess(), 3000);
                 } catch (error) {
                     console.log(error);
                 }
             } else {
-                // CREATE PEDIDO
                 try {
-                    console.log('creando');
                     console.log('Form Data:', this.pedidoForm.value);
                     const pedidoCreate = await this.pedidoService.insertPedido(
                         this.pedidoForm.value
                     );
+                    setTimeout(() => this.formSuccess(), 3000);
                 } catch (error) {
                     console.log(error);
                 }
