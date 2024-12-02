@@ -6,6 +6,7 @@ import { InterfazComponent } from './pages/interfaz/interfaz.component';
 import { LoginComponent } from './pages/login/login.component';
 import { OperarioComponent } from './components/operario/operario.component';
 import { JefeComponent } from './components/jefe/jefe.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     // Redirección inicial a 'home'
@@ -16,7 +17,7 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        component: InterfazComponent,
+        component: InterfazComponent, canActivate: [authGuard],
         children: [
             { path: 'encargado', component: EncargadoComponent },
             { path: 'jefe', component: JefeComponent },
@@ -24,9 +25,9 @@ export const routes: Routes = [
         ],
     },
 
-    { path: 'nuevo-pedido', component: FormularioPedidoComponent },
-    { path: 'pedido/:id', component: PedidoComponent },
-    { path: 'pedido/:id/actualizar', component: FormularioPedidoComponent },
+    { path: 'nuevo-pedido', canActivate: [authGuard], component: FormularioPedidoComponent },
+    { path: 'pedido/:id', canActivate: [authGuard], component: PedidoComponent },
+    { path: 'pedido/:id/actualizar', canActivate: [authGuard], component: FormularioPedidoComponent },
 
     {
         path: 'encargado',
@@ -39,5 +40,5 @@ export const routes: Routes = [
     },
 
     // Ruta comodín para manejar rutas no definidas
-    { path: '**', pathMatch: 'full', redirectTo: 'dashboard' },
+    { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];

@@ -24,31 +24,46 @@ export class LoginComponent {
         });
     }
 
-    checkUser() {
-        const credentials = this.ReactiveForm.value;
+    // checkUser() {
+    //     const credentials = this.ReactiveForm.value;
 
-        this.authService.authenticate(credentials).subscribe({
-            next: (response) => {
-                const userRole = response.user.rol;
+    //     this.authService.authenticate(credentials).subscribe({
+    //         next: (response) => {
+    //             console.log(credentials, response);
+    //             const userRole = response.user.rol;
 
-                switch (userRole) {
-                    case 'encargado':
-                        this.router.navigate(['/dashboard/encargado'], {
-                            queryParams: { name: response.user.nombre },
-                        });
-                        break;
-                    case 'jefe':
-                        this.router.navigate(['/dashboard']);
-                        break;
-                    default:
-                        this.router.navigate(['/login']);
-                        break;
-                }
-            },
-            error: (err) => {
-                console.error('Error al autenticar', err);
-                alert('Credenciales incorrectas');
-            },
-        });
+    //             switch (userRole) {
+    //                 case 'encargado':
+    //                     this.router.navigate(['/dashboard/encargado'], {
+    //                         queryParams: { name: response.user.nombre },
+    //                     });
+    //                     break;
+    //                 case 'jefe':
+    //                     this.router.navigate(['/dashboard']);
+    //                     break;
+    //                 default:
+    //                     this.router.navigate(['/login']);
+    //                     break;
+    //             }
+    //         },
+    //         error: (err) => {
+    //             console.error('Error al autenticar', err);
+    //             alert('Credenciales incorrectas');
+    //         },
+    //     });
+    // }
+
+async checkUser(){
+    if(this.ReactiveForm.valid){
+        try {
+            const res = await this.authService.login(this.ReactiveForm.value);
+            localStorage.setItem('token', res.token)
+            this.router.navigateByUrl('/dashboard')
+        } catch (error) {
+            console.log(error)
+        }
     }
+}
+
+
 }

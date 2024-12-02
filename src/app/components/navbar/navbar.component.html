@@ -11,6 +11,17 @@
                 <p>Inicio</p></a
             >
         </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                aria-current="page"
+                [routerLink]="['/login']"
+                (click)="logOut()"
+            >
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <p>Cerrar <br> sesión</p></a
+            >
+        </li>
     </ul>
     <img src="/assets/avatar_usuario.svg" alt="Usuario" width="30" />
 </nav>
