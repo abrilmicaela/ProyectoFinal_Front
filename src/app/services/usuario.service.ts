@@ -17,7 +17,9 @@ export class UsuarioService {
 
     // Obtener todos los usuarios
     getUsuarios(): Observable<any[]> {
-        return this.http.get<any[]>(this.baseUrl);
+        const token = localStorage.getItem('token');
+        const headers = { Authorization: `Bearer ${token}` };
+        return this.http.get<any[]>(this.baseUrl, {headers});
     }
 
     // Crear un nuevo usuario

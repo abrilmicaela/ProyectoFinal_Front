@@ -16,9 +16,8 @@ export class DashboardComponent {
     authService = inject(AuthService);
     usuarioRol: string | null = null;
     
-    ngOnInit() : void{
+    ngOnInit() {
         this.usuarioRol = this.authService.getUserRole();
-        console.log(this.usuarioRol)
     }
     
     hasRole(role: string): boolean {

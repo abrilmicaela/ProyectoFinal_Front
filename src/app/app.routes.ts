@@ -18,11 +18,11 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: InterfazComponent, canActivate: [authGuard],
-        children: [
-            { path: 'encargado', component: EncargadoComponent },
-            { path: 'jefe', component: JefeComponent },
-            { path: 'operario', component: OperarioComponent },
-        ],
+        // children: [
+        //     { path: 'encargado', component: EncargadoComponent },
+        //     { path: 'jefe', component: JefeComponent },
+        //     { path: 'operario', component: OperarioComponent },
+        // ],
     },
 
     { path: 'nuevo-pedido', canActivate: [authGuard], component: FormularioPedidoComponent },
