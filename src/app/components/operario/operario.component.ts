@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AlmacenService } from '../../services/almacen.service';
+import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
 
 @Component({
     selector: 'app-operario',
@@ -20,40 +22,24 @@ export class OperarioComponent {
         estado: 'Pendiente',
         contacto: '',
     };
+    almacenes: any[] = [];
+
+    nuevoAlmacen: any = { nombre: '', localizacion: '' };
+
+    almacenService = inject(AlmacenService);
 
     constructor() {}
 
     ngOnInit(): void {
         // Inicializar datos de prueba
-        this.tareas = [
-            {
-                id: 1,
-                nombre: 'Pedido 1',
-                origen: 'Almacén A',
-                destino: 'Cliente X',
-                estado: 'Pendiente',
-                fecha: new Date(),
-                contacto: 'contacto1@example.com',
-            },
-            {
-                id: 2,
-                nombre: 'Pedido 2',
-                origen: 'Almacén B',
-                destino: 'Cliente Y',
-                estado: 'En proceso',
-                fecha: new Date(),
-                contacto: 'contacto2@example.com',
-            },
-            {
-                id: 3,
-                nombre: 'Pedido 3',
-                origen: 'Almacén C',
-                destino: 'Cliente Z',
-                estado: 'Completado',
-                fecha: new Date(),
-                contacto: 'contacto3@example.com',
-            },
-        ];
+        this.cargarAlmacenes();
+    }
+
+    cargarAlmacenes(): void {
+        this.almacenService.getAlmacenes().subscribe(
+            (data) => (this.almacenes = data),
+            (error) => console.error('Error al cargar almacenes:', error)
+        );
     }
 
     crearPedido(): void {
