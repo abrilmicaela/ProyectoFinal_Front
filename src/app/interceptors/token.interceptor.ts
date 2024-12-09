@@ -13,10 +13,3 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     const requestCopy = req.clone({ setHeaders: headers });
     return next(requestCopy);
 };
-
-  
-    // if(token){
-    //   const authHeaders = req.clone({headers: req.headers.set('Authorization', token)});
-    //   return next(authHeaders)
-    // }
-    //   return next(req);

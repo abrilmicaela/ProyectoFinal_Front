@@ -1,12 +1,15 @@
-import { inject, Injectable, ɵLocaleDataIndex } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { Usuario } from '../interfaces/usuario';
 
 interface payload extends JwtPayload {
     usuario_id: number;
     usuario_rol: string;
+    usuario_nombre: string;
+    usuario_email: string;
 }
 
 @Injectable({
@@ -15,14 +18,7 @@ interface payload extends JwtPayload {
 export class AuthService {
     private apiUrlBase = `${environment.API_URL}/auth/login`;
     private http = inject(HttpClient);
-    data: any;
-
-    // authenticate(credentials: {
-    //     email: string;
-    //     password: string;
-    // }): Observable<any> {
-    //     return this.http.post(`${this.apiUrlBase}`, credentials);
-    // }
+    usuario: Usuario | null = null;
 
     login(credentials: { email: string; password: string }) {
         return firstValueFrom(
@@ -37,20 +33,28 @@ export class AuthService {
         return localStorage.getItem('token');
     }
 
-getUserRole(): string | null {
-    const token = this.getToken();
-    if (!token) {
-      console.warn('Token is null, cannot decode');
-      return null;
-    }
+    getUser(): Usuario | null {
+        const token = this.getToken();
+        if (!token) {
+            console.warn('El token es nulo');
+            return null;
+        }
 
-    try {
-      const data = jwtDecode<payload>(token);
-      console.log('Decoded token payload:', data);
-      return data.usuario_rol || null;
-    } catch (err) {
-      console.error('Error decoding token:', err);
-      return null;
+        try {
+            const data = jwtDecode<payload>(token);
+            
+            this.usuario = {
+              id: data.usuario_id,
+              rol: data.usuario_rol,
+              nombre: data.usuario_nombre,
+              email: data.usuario_email,
+            };
+            console.log('Token:', this.usuario);
+
+            return this.usuario;
+        } catch (err) {
+            console.error('Error al desencriptar el token:', err);
+            return null;
+        }
     }
-  }
 }
