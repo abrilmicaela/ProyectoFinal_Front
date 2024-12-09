@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { EncargadoComponent } from './components/encargado/encargado.component';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -11,4 +10,15 @@ import { EncargadoComponent } from './components/encargado/encargado.component';
 })
 export class AppComponent {
     title = 'Proyecto';
+
+    router = inject(Router)
+
+    ngOnInit() {
+        const token = localStorage.getItem('token');
+        if (token) {
+            this.router.navigate(['/dashboard']);
+        } else {
+            this.router.navigate(['/login']);
+        }
+    }
 }
