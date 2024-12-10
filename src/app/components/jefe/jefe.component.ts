@@ -14,13 +14,14 @@ import { AlmacenService } from '../../services/almacen.service';
 export class JefeComponent implements OnInit {
   usuarios: any[] = [];
   almacenes: any[] = [];
-  nuevoUsuario: any = { nombre: '', apellido: '', email: '', password: '0000', rol: '' }; // Contraseña fija inicializada
+  nuevoUsuario: any = { nombre: '', apellido: '', email: '', password: '0000', rol: '', almacenId: null };
   nuevoAlmacen: any = { nombre: '', localizacion: '' };
+  emailDuplicado: boolean = false; 
 
   constructor(
     private usuarioService: UsuarioService,
     private almacenService: AlmacenService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -41,11 +42,25 @@ export class JefeComponent implements OnInit {
     );
   }
 
+  verificarEmail(): void {
+    if (this.nuevoUsuario.email) {
+      this.usuarioService.checkEmail(this.nuevoUsuario.email).subscribe(
+        () => (this.emailDuplicado = false),
+        () => (this.emailDuplicado = true) 
+      );
+    }
+  }
+
   crearUsuario(): void {
-    console.log(this.nuevoUsuario); // Log de depuración
+    if (this.emailDuplicado) {
+      alert('El email ya está registrado');
+      return;
+    }
+
+    console.log(this.nuevoUsuario); 
     this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(() => {
-      this.cargarUsuarios(); // Refresca la lista de usuarios tras crear
-      this.nuevoUsuario = { nombre: '', apellido: '', email: '', password: '0000', rol: '' }; // Reset con contraseña fija
+      this.cargarUsuarios();
+      this.nuevoUsuario = { nombre: '', apellido: '', email: '', password: '0000', rol: '', almacenId: null };
     });
   }
 

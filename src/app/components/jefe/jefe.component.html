@@ -10,13 +10,15 @@
       <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido" required />
     </div>
     <div class="col-md-3 col-sm-6">
-      <input [(ngModel)]="nuevoUsuario.email" name="email" class="form-control" placeholder="Email" required />
+      <input [(ngModel)]="nuevoUsuario.email" (blur)="verificarEmail()" name="email" class="form-control"
+        placeholder="Email" required />
+
+      <div *ngIf="emailDuplicado" class="text-danger">El email ya está registrado</div>
     </div>
     <div class="col-md-3 col-sm-6">
       <input [(ngModel)]="nuevoUsuario.password" name="password" class="form-control" placeholder="Contraseña"
         required />
     </div>
-
     <div class="col-md-3 col-sm-6">
       <select [(ngModel)]="nuevoUsuario.almacenId" name="almacenId" class="form-select" required>
         <option value="" disabled selected>Seleccione un almacén</option>
@@ -48,7 +50,7 @@
         <td>{{ usuario.nombre }}</td>
         <td>{{ usuario.apellido }}</td>
         <td>{{ usuario.email }}</td>
-        <td>******</td> <!-- Contraseña no se muestra -->
+        <td>******</td>
         <td>{{ usuario.rol }}</td>
         <td>{{ usuario.almacenId }}</td>
         <td>
@@ -61,7 +63,7 @@
 
   <h2>Gestión de Almacenes</h2>
 
-  
+
   <form (ngSubmit)="crearAlmacen()" class="row g-3 mt-3">
     <div class="col-md-6">
       <input [(ngModel)]="nuevoAlmacen.nombre" name="nombreAlmacen" class="form-control"
