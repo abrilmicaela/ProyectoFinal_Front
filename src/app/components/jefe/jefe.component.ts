@@ -16,7 +16,9 @@ export class JefeComponent implements OnInit {
   almacenes: any[] = [];
   nuevoUsuario: any = { nombre: '', apellido: '', email: '', password: '0000', rol: '', almacenId: null };
   nuevoAlmacen: any = { nombre: '', localizacion: '' };
-  emailDuplicado: boolean = false; 
+  almacenSeleccionado: any = null; 
+  usuarioSeleccionado: any = null; 
+  emailDuplicado: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -46,7 +48,7 @@ export class JefeComponent implements OnInit {
     if (this.nuevoUsuario.email) {
       this.usuarioService.checkEmail(this.nuevoUsuario.email).subscribe(
         () => (this.emailDuplicado = false),
-        () => (this.emailDuplicado = true) 
+        () => (this.emailDuplicado = true)
       );
     }
   }
@@ -57,7 +59,6 @@ export class JefeComponent implements OnInit {
       return;
     }
 
-    console.log(this.nuevoUsuario); 
     this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(() => {
       this.cargarUsuarios();
       this.nuevoUsuario = { nombre: '', apellido: '', email: '', password: '0000', rol: '', almacenId: null };
@@ -71,20 +72,28 @@ export class JefeComponent implements OnInit {
     });
   }
 
-  editarUsuario(usuario: any): void {
-    const nuevoNombre = prompt('Nuevo nombre del usuario:', usuario.nombre);
-    if (nuevoNombre) {
-      usuario.nombre = nuevoNombre;
-      this.usuarioService.editarUsuario(usuario).subscribe(() => this.cargarUsuarios());
-    }
+  
+  abrirModalUsuario(usuario: any): void {
+    this.usuarioSeleccionado = { ...usuario }; 
   }
 
-  editarAlmacen(almacen: any): void {
-    const nuevaLocalizacion = prompt('Nueva localización del almacén:', almacen.localizacion);
-    if (nuevaLocalizacion) {
-      almacen.localizacion = nuevaLocalizacion;
-      this.almacenService.editarAlmacen(almacen).subscribe(() => this.cargarAlmacenes());
-    }
+  guardarUsuarioEditado(): void {
+    this.usuarioService.editarUsuario(this.usuarioSeleccionado).subscribe(() => {
+      this.cargarUsuarios();
+      this.usuarioSeleccionado = null; 
+    });
+  }
+
+  
+  abrirModalAlmacen(almacen: any): void {
+    this.almacenSeleccionado = { ...almacen }; 
+  }
+
+  guardarAlmacenEditado(): void {
+    this.almacenService.editarAlmacen(this.almacenSeleccionado).subscribe(() => {
+      this.cargarAlmacenes();
+      this.almacenSeleccionado = null; 
+    });
   }
 
   eliminarUsuario(id: number): void {
@@ -99,4 +108,3 @@ export class JefeComponent implements OnInit {
     }
   }
 }
-
