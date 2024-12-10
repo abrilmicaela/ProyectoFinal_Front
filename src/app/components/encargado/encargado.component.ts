@@ -12,12 +12,13 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { SelectorEstadoComponent } from "../selector-estado/selector-estado.component";
 declare var bootstrap: any;
 
 @Component({
     selector: 'app-encargado',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, SelectorEstadoComponent],
     templateUrl: './encargado.component.html',
     styleUrl: './encargado.component.css',
 })

@@ -1,0 +1,15 @@
+@if(pedido.estado === 'pendiente'){
+    <select class="badge bg-warning-subtle text-dark border-0" (change)="estadoChange($event)">
+        <option selected>{{ pedido.estado }}</option>
+        @for (estado of estados; track $index) {
+            <option [value]="estado" class="text-dark">{{ estado }}</option>
+        }
+    </select>   
+} @else if (pedido.estado === 'completo') {
+        <select class="badge bg-info-subtle text-dark border-0" (change)="estadoChange($event)">
+        <option selected>{{ pedido.estado }}</option>
+        @for (estado of estados; track $index) {
+            <option [value]="estado" class="text-dark">{{ estado }}</option>
+        }
+    </select> 
+}
