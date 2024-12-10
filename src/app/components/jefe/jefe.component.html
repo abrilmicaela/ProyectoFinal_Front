@@ -1,101 +1,99 @@
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Gestión del Jefe</h1>
+<div class="container">
+  <h2>Gestión de Usuarios</h2>
+
+
+  <form (ngSubmit)="crearUsuario()" class="row g-3 mt-3">
+    <div class="col-md-3 col-sm-6">
+      <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" class="form-control" placeholder="Nombre" required />
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido" required />
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <input [(ngModel)]="nuevoUsuario.email" name="email" class="form-control" placeholder="Email" required />
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <input [(ngModel)]="nuevoUsuario.password" name="password" class="form-control" placeholder="Contraseña"
+        required />
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <select [(ngModel)]="nuevoUsuario.almacenId" name="almacenId" class="form-select" required>
+        <option value="" disabled selected>Seleccione un almacén</option>
+        <option *ngFor="let almacen of almacenes" [value]="almacen.id">
+          {{ almacen.nombre }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+    </div>
+  </form>
+
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Contraseña</th>
+        <th>Rol</th>
+        <th>Almacén</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>******</td> <!-- Contraseña no se muestra -->
+        <td>{{ usuario.rol }}</td>
+        <td>{{ usuario.almacenId }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarUsuario(usuario)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Gestión de Almacenes</h2>
+
   
-    <!-- Usuarios -->
-    <section class="mb-5">
-      <h2 class="text-primary">Usuarios</h2>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let usuario of usuarios">
-              <td>{{ usuario.id }}</td>
-              <td>{{ usuario.nombre }}</td>
-              <td>{{ usuario.apellido }}</td>
-              <td>{{ usuario.email }}</td>
-              <td>{{ usuario.rol }}</td>
-              <td>
-                <button class="btn btn-warning btn-sm me-2" (click)="editarUsuario(usuario)">Editar</button>
-                <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <!-- Formulario de creación de usuario -->
-      <form (ngSubmit)="crearUsuario()" class="row g-3 mt-3">
-        <div class="col-md-3 col-sm-6">
-          <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" class="form-control" placeholder="Nombre" required />
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido" required />
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <input [(ngModel)]="nuevoUsuario.email" name="email" class="form-control" placeholder="Email" required />
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <select [(ngModel)]="nuevoUsuario.rol" name="rol" class="form-select" required>
-            <option value="" disabled selected>Rol</option>
-            <option value="operario">Operario</option>
-            <option value="encargado">Encargado</option>
-            <option value="jefe">Jefe</option>
-          </select>
-        </div>
-        <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary">Agregar Usuario</button>
-        </div>
-      </form>
-    </section>
-  
-    <!-- Almacenes -->
-    <section>
-      <h2 class="text-primary">Almacenes</h2>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Localización</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let almacen of almacenes">
-              <td>{{ almacen.id }}</td>
-              <td>{{ almacen.nombre }}</td>
-              <td>{{ almacen.localizacion }}</td>
-              <td>
-                <button class="btn btn-warning btn-sm me-2" (click)="editarAlmacen(almacen)">Editar</button>
-                <button class="btn btn-danger btn-sm" (click)="eliminarAlmacen(almacen.id)">Eliminar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <!-- Formulario de creación de almacén -->
-      <form (ngSubmit)="crearAlmacen()" class="row g-3 mt-3">
-        <div class="col-md-6 col-sm-12">
-          <input [(ngModel)]="nuevoAlmacen.nombre" name="nombre" class="form-control" placeholder="Nombre" required />
-        </div>
-        <div class="col-md-6 col-sm-12">
-          <input [(ngModel)]="nuevoAlmacen.localizacion" name="localizacion" class="form-control" placeholder="Localización" required />
-        </div>
-        <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary">Agregar Almacén</button>
-        </div>
-      </form>
-    </section>
-  </div>
-  
+  <form (ngSubmit)="crearAlmacen()" class="row g-3 mt-3">
+    <div class="col-md-6">
+      <input [(ngModel)]="nuevoAlmacen.nombre" name="nombreAlmacen" class="form-control"
+        placeholder="Nombre del almacén" required />
+    </div>
+    <div class="col-md-6">
+      <input [(ngModel)]="nuevoAlmacen.localizacion" name="localizacion" class="form-control" placeholder="Localización"
+        required />
+    </div>
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary">Agregar Almacén</button>
+    </div>
+  </form>
+
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Localización</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let almacen of almacenes">
+        <td>{{ almacen.nombre }}</td>
+        <td>{{ almacen.localizacion }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarAlmacen(almacen)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarAlmacen(almacen.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
