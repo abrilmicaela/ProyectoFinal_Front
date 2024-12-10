@@ -21,9 +21,9 @@ export class SelectorEstadoComponent {
 
     async estadoChange(event: Event) {
         const target = event.target as HTMLSelectElement;
-        console.log(this.pedido)
+        this.pedido.estado = target.value;
         this.pedidosService
-            .updatePedido(this.pedido.id, this.pedido)
+            .patchEstadoPedido(this.pedido.id, this.pedido)
             .subscribe({
                 next: (updatedPedido) => {
                     alert('Pedido actualizado');

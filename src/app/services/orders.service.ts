@@ -40,4 +40,10 @@ export class PedidosService {
         const url = `${this.apiUrl}/${id}`;
         return this.http.put<Pedido>(url, pedido);
     }
+
+    patchEstadoPedido(id: number, pedido: Pedido): Observable<Pedido> {
+        const { estado } = pedido;
+        const url = `${this.apiUrl}/estados/${id}`;
+        return this.http.patch<Pedido>(url, pedido);
+    }
 }
