@@ -31,15 +31,15 @@ export class PedidosService {
     }
 
     // PROMISE
-    // updatePedido(id: number, pedido: Pedido): Promise<Pedido> {
-    // const url = `${this.apiUrl}/${id}`;
-    // return firstValueFrom(this.http.put<Pedido>(url, pedido));
-    // }
-    updatePedido(id: number, pedido: Pedido): Observable<Pedido> {
-        const { origen, destino, matricula_camion, estado } = pedido;
-        const url = `${this.apiUrl}/${id}`;
-        return this.http.put<Pedido>(url, pedido);
+    updatePedido(id: number, pedido: Pedido): Promise<Pedido> {
+    const url = `${this.apiUrl}/${id}`;
+    return firstValueFrom(this.http.put<Pedido>(url, pedido));
     }
+    // updatePedido(id: number, pedido: Pedido): Observable<Pedido> {
+    //     const { origen, destino, matricula_camion, estado } = pedido;
+    //     const url = `${this.apiUrl}/${id}`;
+    //     return this.http.put<Pedido>(url, pedido);
+    // }
 
     patchEstadoPedido(id: number, pedido: Pedido): Observable<Pedido> {
         const { estado } = pedido;

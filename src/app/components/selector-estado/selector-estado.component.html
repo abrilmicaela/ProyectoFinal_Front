@@ -12,7 +12,7 @@
             <option [value]="estado" class="text-dark bg-light opacity-50">{{ estado }}</option>
         }   
     </select> 
-} @else if (pedido.estado === 'completo') {
+} @else if (pedido.estado === 'completado') {
         <select class="badge bg-success-subtle text-muted border-0" (change)="estadoChange($event)">
         <option selected>{{ pedido.estado }}</option>
         @for (estado of estadosFilter; track $index) {
