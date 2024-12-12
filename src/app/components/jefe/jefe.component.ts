@@ -44,14 +44,14 @@ export class JefeComponent implements OnInit {
     );
   }
 
-  verificarEmail(): void {
-    if (this.nuevoUsuario.email) {
-      this.usuarioService.checkEmail(this.nuevoUsuario.email).subscribe(
-        () => (this.emailDuplicado = false),
-        () => (this.emailDuplicado = true)
-      );
-    }
-  }
+//   verificarEmail(): void {
+//     if (this.nuevoUsuario.email) {
+//       this.usuarioService.checkEmail(this.nuevoUsuario.email).subscribe(
+//         () => (this.emailDuplicado = false),
+//         () => (this.emailDuplicado = true)
+//       );
+//     }
+//   }
 
   crearUsuario(): void {
     if (this.emailDuplicado) {

@@ -18,26 +18,12 @@
                     />
                 </div>
                 <div class="mb-3">
-                    <label for="origen" class="form-label">Origen</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="origen"
-                        [(ngModel)]="nuevoPedido.origen"
-                        name="origen"
-                        required
-                    />
+                      <label for="origen" class="form-label">Origen</label>
+                    <app-selector-almacen [id]="'origen'"></app-selector-almacen>
                 </div>
                 <div class="mb-3">
                     <label for="destino" class="form-label">Destino</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="destino"
-                        [(ngModel)]="nuevoPedido.destino"
-                        name="destino"
-                        required
-                    />
+                    <app-selector-almacen [id]="'destino'"></app-selector-almacen>
                 </div>
                 <div class="mb-3">
                     <label for="fecha" class="form-label">Fecha</label>

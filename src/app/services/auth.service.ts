@@ -49,8 +49,6 @@ export class AuthService {
               nombre: data.usuario_nombre,
               email: data.usuario_email,
             };
-            console.log('Token:', this.usuario);
-
             return this.usuario;
         } catch (err) {
             console.error('Error al desencriptar el token:', err);

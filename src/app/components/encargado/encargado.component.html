@@ -36,11 +36,8 @@
                         <td>{{ pedido.destino }}</td>
                         <td>{{ pedido.fecha_salida }}</td>
                         <td>
-                            <span
-                                class="badge bg-info text-dark"
-                                [ngClass]="getUserStatus(pedido.estado)"
-                                >{{ getEstadoKey(pedido.estado) }}</span
-                            >
+                          
+                            <app-selector-estado [pedido]="pedido"></app-selector-estado>
                         </td>
                         <td>{{ pedido.matricula_camion }}</td>
                         <td>

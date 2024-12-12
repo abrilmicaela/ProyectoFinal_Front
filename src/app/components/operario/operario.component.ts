@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlmacenService } from '../../services/almacen.service';
 import { setAlternateWeakRefImpl } from '@angular/core/primitives/signals';
+import { SelectorAlmacenComponent } from "../selector-almacen/selector-almacen.component";
 
 @Component({
     selector: 'app-operario',
     standalone: true,
-    imports: [CommonModule, FormsModule], // Importamos los módulos necesarios
+    imports: [CommonModule, FormsModule, SelectorAlmacenComponent], // Importamos los módulos necesarios
     templateUrl: './operario.component.html',
     styleUrls: ['./operario.component.css'],
 })
