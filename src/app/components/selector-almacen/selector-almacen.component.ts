@@ -10,8 +10,7 @@ import { Almacen } from '../../interfaces/almacen.interface';
     styleUrl: './selector-almacen.component.css',
 })
 export class SelectorAlmacenComponent {
-
-  @Input() id;
+    @Input() id;
     almacenService = inject(AlmacenService);
     almacenes: Almacen[] = [];
 
