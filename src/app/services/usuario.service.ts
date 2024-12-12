@@ -11,10 +11,6 @@ export class UsuarioService {
 
     constructor(private http: HttpClient) {}
 
-    // authenticateUsuario(usuario: any): Promise<Usuario> {
-      //  return firstValueFrom(this.http.post<Usuario>(`${this.apiUrl}`, pedido));
-    // }
-
     // Obtener todos los usuarios
     getUsuarios(): Observable<any[]> {
         const token = localStorage.getItem('token');

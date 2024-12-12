@@ -1,7 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Status } from '../../interfaces/pedido.interface';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { Pedido } from '../../interfaces/pedido.interface';
 import { PedidosService } from '../../services/orders.service';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +29,6 @@ export class EncargadoComponent {
         };
         this.pedidoService.getAllPedidos().subscribe({
             next: (response) => {
-                console.log(response);
                 this.pedidos = response.map((pedido) => ({
                     ...pedido,
                     fecha_salida: this.formatFecha(pedido.fecha_salida),
@@ -73,30 +71,14 @@ export class EncargadoComponent {
     }
 
     async guardarPedido() {
-        //TRY CATCH en caso de usar PROMISE
-        // console.log('Submitting pedido:', this.pedido);
-        // try {
-        //     const updatedPedido = await this.pedidoService.updatePedido(
-        //         this.pedido.id,
-        //         this.pedido
-        //     );
-        //     alert('Pedido actualizado');
-        //     console.log('Pedido updated successfully:', updatedPedido);
-        // } catch (err) {
-        //     console.error('Error al actualizar el pedido:', err);
-        //     alert('Hubo un error al actualizar el pedido');
-        // }
-
-        this.pedidoService.updatePedido(this.pedido.id, this.pedido).then((	response) => {
-			console.log(response);
-		})
-		// subscribe({
-        //     next: (updatedPedido) => {
-        //         alert('Pedido actualizado');
-        //     },
-        //     error: (err) => {
-        //         console.error('Error al actualizar el pedido:', err);
-        //     },
-        // });
+        try {
+            this.pedidoService
+                .updatePedido(this.pedido.id, this.pedido)
+                .then((response) => {
+                    alert('Pedido actualizado');
+                });
+        } catch (error) {
+            console.error('Error al actualizar el pedido:', error);
+        }
     }
 }
