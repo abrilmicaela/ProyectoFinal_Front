@@ -3,51 +3,32 @@
 
     <form (ngSubmit)="crearUsuario()" class="row g-3 mt-3">
         <div class="col-md-3 col-sm-6">
-            <input
-                [(ngModel)]="nuevoUsuario.nombre"
-                name="nombre"
-                class="form-control"
-                placeholder="Nombre"
-                required
-            />
+            <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" class="form-control" placeholder="Nombre" required />
         </div>
         <div class="col-md-3 col-sm-6">
-            <input
-                [(ngModel)]="nuevoUsuario.apellido"
-                name="apellido"
-                class="form-control"
-                placeholder="Apellido"
-                required
-            />
+            <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido"
+                required />
         </div>
         <div class="col-md-3 col-sm-6">
-            <input
-                [(ngModel)]="nuevoUsuario.email"
-                name="email"
-                class="form-control"
-                placeholder="Email"
-                required
-            />
+            <input [(ngModel)]="nuevoUsuario.email" name="email" class="form-control" placeholder="Email" required />
             <div *ngIf="emailDuplicado" class="text-danger">
                 El email ya está registrado
             </div>
         </div>
         <div class="col-md-3 col-sm-6">
-            <input
-                [(ngModel)]="nuevoUsuario.password"
-                name="password"
-                class="form-control"
-                placeholder="Contraseña"
-                required
-            />
+            <input [(ngModel)]="nuevoUsuario.password" name="password" class="form-control" placeholder="Contraseña"
+                required />
         </div>
         <div class="col-md-3 col-sm-6">
-            <select
-                [(ngModel)]="nuevoUsuario.almacenId"
-                name="almacenId"
-                class="form-select"
-                required
-            >
+            <select [(ngModel)]="nuevoUsuario.rol" name="rol" class="form-select" required>
+                <option value="" disabled selected>Selecciona un rol</option>
+                <option value="admin">Administrador</option>
+                <option value="jefe">Jefe</option>
+                <option value="operario">Operario</option>
+            </select>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <select [(ngModel)]="nuevoUsuario.almacenId" name="almacenId" class="form-select" required>
                 <option value="" disabled selected>
                     Seleccione un almacén
                 </option>
@@ -84,16 +65,10 @@
                 <td>{{ usuario.rol }}</td>
                 <td>{{ usuario.almacenId }}</td>
                 <td>
-                    <button
-                        class="btn btn-warning btn-sm"
-                        (click)="abrirModalUsuario(usuario)"
-                    >
+                    <button class="btn btn-warning btn-sm" (click)="abrirModalUsuario(usuario)">
                         Editar
                     </button>
-                    <button
-                        class="btn btn-danger btn-sm"
-                        (click)="eliminarUsuario(usuario.id)"
-                    >
+                    <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usuario.id)">
                         Eliminar
                     </button>
                 </td>
@@ -104,32 +79,14 @@
     <div *ngIf="usuarioSeleccionado" class="modal">
         <div class="modal-content">
             <h3>Editar Usuario</h3>
-            <input
-                [(ngModel)]="usuarioSeleccionado.nombre"
-                class="form-control"
-                placeholder="Nombre"
-            />
-            <input
-                [(ngModel)]="usuarioSeleccionado.apellido"
-                class="form-control"
-                placeholder="Apellido"
-            />
-            <input
-                [(ngModel)]="usuarioSeleccionado.email"
-                class="form-control"
-                placeholder="Email"
-            />
+            <input [(ngModel)]="usuarioSeleccionado.nombre" class="form-control" placeholder="Nombre" />
+            <input [(ngModel)]="usuarioSeleccionado.apellido" class="form-control" placeholder="Apellido" />
+            <input [(ngModel)]="usuarioSeleccionado.email" class="form-control" placeholder="Email" />
             <div class="modal-actions">
-                <button
-                    class="btn btn-success"
-                    (click)="guardarUsuarioEditado()"
-                >
+                <button class="btn btn-success" (click)="guardarUsuarioEditado()">
                     Guardar
                 </button>
-                <button
-                    class="btn btn-secondary"
-                    (click)="usuarioSeleccionado = null"
-                >
+                <button class="btn btn-secondary" (click)="usuarioSeleccionado = null">
                     Cancelar
                 </button>
             </div>
@@ -139,27 +96,13 @@
     <div *ngIf="almacenSeleccionado" class="modal">
         <div class="modal-content">
             <h3>Editar Almacén</h3>
-            <input
-                [(ngModel)]="almacenSeleccionado.nombre"
-                class="form-control"
-                placeholder="Nombre"
-            />
-            <input
-                [(ngModel)]="almacenSeleccionado.localizacion"
-                class="form-control"
-                placeholder="Localización"
-            />
+            <input [(ngModel)]="almacenSeleccionado.nombre" class="form-control" placeholder="Nombre" />
+            <input [(ngModel)]="almacenSeleccionado.localizacion" class="form-control" placeholder="Localización" />
             <div class="modal-actions">
-                <button
-                    class="btn btn-success"
-                    (click)="guardarAlmacenEditado()"
-                >
+                <button class="btn btn-success" (click)="guardarAlmacenEditado()">
                     Guardar
                 </button>
-                <button
-                    class="btn btn-secondary"
-                    (click)="almacenSeleccionado = null"
-                >
+                <button class="btn btn-secondary" (click)="almacenSeleccionado = null">
                     Cancelar
                 </button>
             </div>

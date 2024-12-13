@@ -66,6 +66,11 @@ export class JefeComponent implements OnInit {
             return;
         }
 
+        if (!this.nuevoUsuario.rol) { 
+            alert('Por favor, selecciona un rol antes de crear el usuario.'); 
+            return; 
+        } 
+
         this.usuarioService.crearUsuario(this.nuevoUsuario).subscribe(() => {
             this.cargarUsuarios();
             this.nuevoUsuario = {
