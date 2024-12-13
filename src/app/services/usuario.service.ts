@@ -32,4 +32,9 @@ export class UsuarioService {
     eliminarUsuario(id: number): Observable<any> {
         return this.http.delete<any>(`${this.baseUrl}/${id}`);
     }
+
+    //Verificar duplicidad del Email
+    checkEmail(email: string): Observable<any> {
+        return this.http.get<any>(`${this.baseUrl}/checkEmail?email=${email}`);
+      }
 }
