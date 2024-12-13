@@ -1,4 +1,5 @@
 <div class="container">
+
     <h2>Gestión de Usuarios</h2>
 
     <form (ngSubmit)="crearUsuario()" class="row g-3 mt-3">
@@ -6,7 +7,8 @@
             <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" class="form-control" placeholder="Nombre" required />
         </div>
         <div class="col-md-3 col-sm-6">
-            <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido" required />
+            <input [(ngModel)]="nuevoUsuario.apellido" name="apellido" class="form-control" placeholder="Apellido"
+                required />
         </div>
         <div class="col-md-3 col-sm-6">
             <input [(ngModel)]="nuevoUsuario.email" name="email" class="form-control" placeholder="Email" required />
@@ -15,7 +17,8 @@
             </div>
         </div>
         <div class="col-md-3 col-sm-6">
-            <input [(ngModel)]="nuevoUsuario.password" name="password" class="form-control" placeholder="Contraseña" required />
+            <input [(ngModel)]="nuevoUsuario.password" name="password" class="form-control" placeholder="Contraseña"
+                required />
         </div>
         <div class="col-md-3 col-sm-6">
             <select [(ngModel)]="nuevoUsuario.rol" name="rol" class="form-select" required>
@@ -74,22 +77,22 @@
         </tbody>
     </table>
 
-    <!-- Modal para editar usuario -->
+
     <div *ngIf="usuarioSeleccionado" class="modal">
         <div class="modal-content">
             <h3>Editar Usuario</h3>
             <input [(ngModel)]="usuarioSeleccionado.nombre" class="form-control" placeholder="Nombre" />
             <input [(ngModel)]="usuarioSeleccionado.apellido" class="form-control" placeholder="Apellido" />
             <input [(ngModel)]="usuarioSeleccionado.email" class="form-control" placeholder="Email" />
-            
-            <!-- *** NEW: Select para almacén en el modal *** -->
+
+
             <select [(ngModel)]="usuarioSeleccionado.almacenId" class="form-select">
                 <option value="" disabled selected>Seleccione un almacén</option>
                 <option *ngFor="let almacen of almacenes" [value]="almacen.id">
                     {{ almacen.nombre }}
                 </option>
             </select>
-            <!-- Fin del select -->
+
 
             <div class="modal-actions">
                 <button class="btn btn-success" (click)="guardarUsuarioEditado()">
@@ -102,6 +105,47 @@
         </div>
     </div>
 
+    <h2>Gestión de Almacenes</h2>
+
+    <form (ngSubmit)="crearAlmacen()" class="row g-3 mt-3">
+        <div class="col-md-6">
+            <input [(ngModel)]="nuevoAlmacen.nombre" name="nombre" class="form-control" placeholder="Nombre del Almacén"
+                required />
+        </div>
+        <div class="col-md-6">
+            <input [(ngModel)]="nuevoAlmacen.localizacion" name="localizacion" class="form-control"
+                placeholder="Localización" required />
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary">
+                Agregar Almacén
+            </button>
+        </div>
+    </form>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Localización</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let almacen of almacenes">
+                <td>{{ almacen.nombre }}</td>
+                <td>{{ almacen.localizacion }}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" (click)="abrirModalAlmacen(almacen)">
+                        Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" (click)="eliminarAlmacen(almacen.id)">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <div *ngIf="almacenSeleccionado" class="modal">
         <div class="modal-content">
             <h3>Editar Almacén</h3>
