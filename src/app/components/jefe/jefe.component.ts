@@ -101,13 +101,29 @@ export class JefeComponent implements OnInit {
     }
 
     guardarUsuarioEditado(): void {
+
+        if (!this.usuarioSeleccionado.almacenId) {
+            alert('Por favor, selecciona un almacén antes de guardar.');
+            return;
+        }
+
+
         this.usuarioService
             .editarUsuario(this.usuarioSeleccionado)
-            .subscribe(() => {
-                this.cargarUsuarios();
-                this.usuarioSeleccionado = null;
-            });
+            .subscribe(
+                () => {
+
+                    this.cargarUsuarios();
+                    this.usuarioSeleccionado = null;
+                },
+                (error) => {
+
+                    console.error('Error al actualizar usuario:', error);
+                    alert('Hubo un problema al guardar los cambios. Por favor, inténtalo de nuevo.');
+                }
+            );
     }
+
 
     abrirModalAlmacen(almacen: any): void {
         this.almacenSeleccionado = { ...almacen };
